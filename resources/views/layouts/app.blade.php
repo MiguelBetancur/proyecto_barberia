@@ -47,9 +47,9 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarCollapse">
-            <a href="{{ route('users.index') }}" class="nav-item nav-link">Usuario</a>
+            <a href="https://docs.google.com/document/d/1GbfQN6i8CG9w01huqyaFOi97-eRAFQxM/edit?usp=sharing&ouid=113016344267457325102&rtpof=true&sd=true">Sobre Nosotros</a>
             <a href="{{ route('advertisements.index') }}" class="nav-item nav-link">Avisos</a>
-            <a href="https://docs.google.com/document/d/1GbfQN6i8CG9w01huqyaFOi97-eRAFQxM/edit?usp=sharing&ouid=113016344267457325102&rtpof=true&sd=true" class="nav-item nav-link">Sobre Nosotros</a>
+            <a href="{{ route('users.index') }}" class="nav-item nav-link">Usuario</a>
         </div>
 
         <div class="collapse navbar-collapse" id="navbarCollapse">
