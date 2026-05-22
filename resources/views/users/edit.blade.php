@@ -15,7 +15,17 @@
 
         <div class="mb-3">
             <label class="form-label">Nombre</label>
-            <input type="text" class="form-control" name="nombre" value="{{$user->name}}" required>
+            <input 
+                type="text" 
+                class="form-control" 
+                name="nombre" 
+                value="{{$user->name}}"
+                required
+                pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+"
+                oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ\s]/g, ''); validarEspacios(this)"
+                title="Solo se permiten letras"
+            >
+            <div class="invalid-feedback">El nombre solo debe contener letras.</div>
         </div>
 
         <div class="mb-3">
@@ -48,5 +58,16 @@
     </form>
 
 </div> 
-
+<script>
+    function validarEspacios(input) {
+        if (input.value.trim() === '') {
+            input.value = '';
+            input.setCustomValidity('El nombre no puede estar vacío.');
+            input.classList.add('is-invalid');
+        } else {
+            input.setCustomValidity('');
+            input.classList.remove('is-invalid');
+        }
+    }
+</script>
 @endsection 

@@ -14,12 +14,20 @@
 
         <div class="mb-3">
             <label class="form-label">Nombre</label>
-            <input type="text" class="form-control" name="nombre" required>
+            <input 
+                type="text" 
+                class="form-control" 
+                name="nombre" 
+                required
+                pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+"
+                oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ\s]/g, ''); validarEspacios(this)"
+            >
+            <div class="invalid-feedback" id="error-nombre">El nombre solo debe contener letras.</div>
         </div>
 
         <div class="mb-3">
             <label class="form-label">Correo</label>
-            <input type="text" class="form-control" name="correo" required>
+            <input type="email" class="form-control" name="correo" required>
         </div>
 
         <div class="mb-3">
@@ -88,7 +96,18 @@
     </table>
 
 </div>
-
+<script>
+    function validarEspacios(input) {
+        if (input.value.trim() === '') {
+            input.value = '';
+            input.setCustomValidity('El nombre no puede estar vacío.');
+            input.classList.add('is-invalid');
+        } else {
+            input.setCustomValidity('');
+            input.classList.remove('is-invalid');
+        }
+    }
+</script>
 @endsection
 
 

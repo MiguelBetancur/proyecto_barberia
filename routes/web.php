@@ -60,3 +60,7 @@ Route::post('/payments', [PaymentController::class, 'store'])->name('payments.st
 Route::delete('/payments/{id}', [PaymentController::class, 'destroy'])->name('payments.destroy');
 Route::get('/payments/{id}', [PaymentController::class, 'edit'])->name('payments.edit');
 Route::put('/payments/{id}', [PaymentController::class, 'update'])->name('payments.update');
+
+Route::get('/graficas', function () {
+    return view('apis.index');
+});

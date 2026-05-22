@@ -18,7 +18,13 @@
 
         <div class="mb-3">
             <span class="form-label">Calificación</span>
-            <input type="text" class="form-control" name="calificacion" value="{{ $review->rating }}" required>
+            <select class="form-control" name="calificacion" required>
+                <option value="" disabled>Selecciona una calificación</option>
+                @for ($i = 1; $i <= 10; $i++)
+                    <option value="{{ $i }}" {{ $review->rating == $i ? 'selected' : '' }}>{{ $i }}</option>
+                @endfor
+            </select>
+            <div class="invalid-feedback">Debes seleccionar una calificación.</div>
         </div>
 
         <div class="b-3">
