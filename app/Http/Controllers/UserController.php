@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use \App\Models\User;
 use \App\Models\Role;
 
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
+
 class UserController extends Controller
 {
     /**
@@ -99,5 +101,17 @@ class UserController extends Controller
         $user = User::find($id);
         $user->delete();
         return redirect()->route('users.index');
+    }
+
+    public function generar_pdf()
+    {
+
+        ini_set('max_execution_time', 300);
+        $users=User::all();
+        
+        
+        $pdf = PDF::loadView('users.generarPDF', compact('users'));
+
+        return $pdf->download('users.pdf');
     }
 }

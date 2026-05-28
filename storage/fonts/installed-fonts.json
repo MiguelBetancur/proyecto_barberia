@@ -1,0 +1,16 @@
+{
+    "oswald": {
+        "600": "oswald_600_e327e4456a99881edcd483bee70edea8"
+    },
+    "roboto": {
+        "normal": "C:\\laragon\\www\\proyecto_barberia\\storage\\fonts\/roboto_normal_826b21c6e9e390acde75d9452fa9e59f",
+        "500": "roboto_500_6c31329457813f7a8ebc5a352147fef5"
+    },
+    "font awesome 5 brands": {
+        "normal": "font_awesome_5_brands_normal_9166bcb40dea5ba374b655439357cc5e"
+    },
+    "font awesome 5 free": {
+        "normal": "C:\\laragon\\www\\proyecto_barberia\\storage\\fonts\/font_awesome_5_free_normal_ed4e4da87937dc9d793611fdb1abbce8",
+        "900": "font_awesome_5_free_900_31ca5fb3f9009ed2d5b8cf264a9d6ed4"
+    }
+}

@@ -6,52 +6,54 @@
 <br>
 <br>
 <div class="container">
-    <h1 class="text-center mb-4">Crear Reseña</h1>
+    @if(Auth::user()->role_id == 33)
+        <h1 class="text-center mb-4">Crear Reseña</h1>
 
-    <form action="{{route('reviews.store')}}" method="post">
-        @csrf
+        <form action="{{route('reviews.store')}}" method="post">
+            @csrf
 
-        <div class="mb-3">
-            <label class="form-label">Comentario</label>
-            <input type="text" class="form-control" name="comentario" required>
-        </div>
+            <div class="mb-3">
+                <label class="form-label">Comentario</label>
+                <input type="text" class="form-control" name="comentario" required>
+            </div>
 
-        <div class="mb-3">
-            <label class="form-label">Calificación</label>
-            <select class="form-control" name="calificacion" required>
-                <option value="" disabled selected>Selecciona una calificación</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-            </select>
-        </div>
+            <div class="mb-3">
+                <label class="form-label">Calificación</label>
+                <select class="form-control" name="calificacion" required>
+                    <option value="" disabled selected>Selecciona una calificación</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+            </div>
 
-        <div class="b-3">
-            <label class="form-label">Usuario</label>
-            <select class="form-select" name="usuario_id" required>
-                @if($users->isEmpty())
-                    <option disabled selected>No existen usuarios aún, crea uno primero</option>
-                @else
-                    @foreach($users as $user)
-                        <option value="{{ $user->id }}">
-                            {{ $user->name ?? 'Usuario ID: '.$user->id }}
-                        </option>
-                    @endforeach
-                @endif
-            </select>
-        </div>
-        <br>
-        <button type="submit" class="btn btn-primary">Crear Reseña</button>
-    </form>
+            <div class="b-3">
+                <label class="form-label">Usuario</label>
+                <select class="form-select" name="usuario_id" required>
+                    @if($users->isEmpty())
+                        <option disabled selected>No existen usuarios aún, crea uno primero</option>
+                    @else
+                        @foreach($users as $user)
+                            <option value="{{ $user->id }}">
+                                {{ $user->name ?? 'Usuario ID: '.$user->id }}
+                            </option>
+                        @endforeach
+                    @endif
+                </select>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">Crear Reseña</button>
+        </form>
 
-    <hr class="my-5">
+        <hr class="my-5">
+    @endif
 
     <h2 class="text-center mb-3">Lista de Comentarios</h2>
 
@@ -62,7 +64,9 @@
                 <th>Comentario</th>
                 <th>Calificación</th>
                 <th>Usuario</th>
-                <th>Opciones</th>
+                @if(Auth::user()->role_id == 33 || Auth::user()->role_id == 31)
+                    <th>Opciones</th>
+                @endif
             </tr>
         </thead>
         <tbody>
@@ -73,13 +77,19 @@
                 <td>{{ $review->rating }}</td>
                 <td>{{ optional($review->user)->name ?? 'Sin usuario' }}</td>
                 <td>
-                    <a href="{{route('reviews.edit', $review->id)}}" class="btn btn-warning btn-sm">Editar</a>
+                    @if(Auth::user()->role_id == 33)
+                        <a href="{{route('reviews.edit', $review->id)}}" class="btn btn-warning btn-sm">Editar</a>
+                    @endif
 
-                    <form action="{{route('reviews.destroy', $review->id)}}" method="post" style="display:inline;">
-                        @csrf
-                        @method('delete')
-                        <button class="btn btn-danger btn-sm">Eliminar</button>
-                    </form>
+
+                    @if(Auth::user()->role_id == 33 || Auth::user()->role_id == 31)
+                        <form action="{{route('reviews.destroy', $review->id)}}" method="post" style="display:inline;">
+                            @csrf
+                            @method('delete')
+                            <button class="btn btn-danger btn-sm">Eliminar</button>
+                        </form>
+                     @endif
+
                 </td>
             </tr>
             @endforeach

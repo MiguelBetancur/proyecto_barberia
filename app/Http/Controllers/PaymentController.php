@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use \App\Models\Payment;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
 
 
 class PaymentController extends Controller
@@ -100,4 +101,16 @@ class PaymentController extends Controller
         $payment->delete();
         return redirect()->route('payments.index');
     }
+
+    public function generar_pdf()
+    {
+        ini_set('max_execution_time', 300);
+        $payments = Payment::all();
+        
+        $pdf = PDF::loadView('payments.generarPDF', compact('payments'));
+
+        return $pdf->download('historial_pagos.pdf');
+    }
 }
+
+

@@ -10,8 +10,10 @@ use \App\Http\Controllers\ServiceController;
 use \App\Http\Controllers\Reserve_ServiceController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Auth;
 
-Route::get('/principal', [HomeController::class, 'principal'])->name('principal');
+
+Route::get('/principal', [HomeController::class, 'principal'])->name('principal')->middleware('auth');
 
 Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
 Route::post('/roles', [RoleController::class, 'store'])->name('roles.store');
@@ -64,3 +66,17 @@ Route::put('/payments/{id}', [PaymentController::class, 'update'])->name('paymen
 Route::get('/graficas', function () {
     return view('apis.index');
 });
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/home/admin', [HomeController::class, 'admin'])->name('home.admin');
+    Route::get('/home/barber', [HomeController::class, 'barber'])->name('home.barber');
+    Route::get('/home/cliente', [HomeController::class, 'cliente'])->name('home.cliente');
+});
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Route::get('/download-pdf', [UserController::class, 'generar_pdf'])->name('descargarPDF');
+Route::get('/download-pdfPayments', [PaymentController::class, 'generar_pdf'])->name('descargarPDFPayments');
